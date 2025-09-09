@@ -66,6 +66,13 @@ export default function Navbar() {
         <span className="text-lg font-semibold tracking-wide">SportSight</span>
       </div>
 
+      {/* Center Message */}
+      {status !== 'connected' && (
+        <div className="text-red-600 font-medium text-sm">
+          Connect to your crypto wallet in testnet mode to see the markets
+        </div>
+      )}
+
       {/* Wallet section */}
       {status === 'connected' ? (
         <div className="flex items-center space-x-4">
@@ -119,5 +126,6 @@ export default function Navbar() {
         </div>
       )}
     </header>
+
   )
 }
