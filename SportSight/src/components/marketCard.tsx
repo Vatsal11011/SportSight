@@ -41,7 +41,7 @@ interface SharesBalance {
 }
 
 export function MarketCard({ index, filter }: MarketCardProps) {
-  const { address } = useAccount();
+  const { address, status: accountStatus } = useAccount();
 
   const {
     data: marketData,
@@ -74,17 +74,16 @@ export function MarketCard({ index, filter }: MarketCardProps) {
     abi: MarketContract.abi,
     functionName: "getSharesBalance",
     args: address ? [BigInt(index), address as `0x${string}`] : undefined,
-    query: {
-      enabled: !!address,
-    },
+    query: { enabled: !!address }, // still only fetch if wallet connected
   });
 
-  const sharesBalance: SharesBalance | undefined = sharesBalanceData
+  const sharesBalance: SharesBalance = sharesBalanceData
     ? {
       optionAShares: sharesBalanceData[0],
       optionBShares: sharesBalanceData[1],
     }
-    : undefined;
+    : { optionAShares: 0n, optionBShares: 0n }; // fallback
+
 
   const isExpired = market
     ? new Date(Number(market.endTime) * 1000) < new Date()
@@ -141,18 +140,25 @@ export function MarketCard({ index, filter }: MarketCardProps) {
               ) : (
                 <MarketPending />
               )
+            ) : accountStatus === 'connected' && market ? (
+              <MarketBuyInterface marketId={index} market={market} />
             ) : (
-              <MarketBuyInterface marketId={index} market={market!} />
+              <p className="text-red-600 text-sm mt-2">
+                Connect your wallet in testnet mode to buy shares
+              </p>
             )}
+
           </CardContent>
           <CardFooter>
-            {market && sharesBalance && (
+            {market && address && (
               <MarketSharesDisplay
                 market={market}
                 sharesBalance={sharesBalance}
               />
             )}
           </CardFooter>
+
+
         </>
       )}
     </Card>
