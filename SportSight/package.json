@@ -25,6 +25,7 @@
     "react-dom": "^18.3.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.10",
+    "terser-webpack-plugin": "^5.3.14",
     "viem": "latest",
     "wagmi": "latest"
   },

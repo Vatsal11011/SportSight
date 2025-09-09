@@ -1,4 +1,4 @@
-import { GitHub } from "lucide-react"
+import { GithubIcon } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
@@ -18,7 +18,7 @@ export function Footer() {
                         </Link>
                         . The source code is available on{" "}
                         <Link
-                            href="https://github.com/yourusername/your-repo"
+                            href="https://github.com/Vatsal11011/SportSight"
                             target="_blank"
                             rel="noreferrer"
                             className="font-medium underline underline-offset-4"
@@ -30,11 +30,11 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-4">
                     <Link
-                        href="https://github.com/yourusername/your-repo"
+                        href="https://github.com/Vatsal11011/SportSight"
                         target="_blank"
                         rel="noreferrer"
                     >
-                        <GitHub className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                        <GithubIcon className="h-5 w-5 text-muted-foreground hover:text-foreground" />
                     </Link>
                 </div>
             </div>

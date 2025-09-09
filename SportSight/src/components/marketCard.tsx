@@ -55,38 +55,42 @@ export function MarketCard({ index, filter }: MarketCardProps) {
 
   const market: Market | undefined = marketData
     ? {
-        question: marketData[0],
-        optionA: marketData[1],
-        optionB: marketData[2],
-        endTime: marketData[3],
-        outcome: marketData[4],
-        totalOptionAShares: marketData[5],
-        totalOptionBShares: marketData[6],
-        resolved: marketData[7],
-      }
+      question: marketData[0],
+      optionA: marketData[1],
+      optionB: marketData[2],
+      endTime: marketData[3],
+      outcome: marketData[4],
+      totalOptionAShares: marketData[5],
+      totalOptionBShares: marketData[6],
+      resolved: marketData[7],
+    }
     : undefined;
 
-  const sharesBalanceQuery = address
-  ? useReadContract({
-      address: MarketContract.address,
-      abi: MarketContract.abi,
-      functionName: "getSharesBalance",
-      args: [BigInt(index), address as `0x${string}`],
-    })
-  : { data: undefined, isLoading: false };
-
-const sharesBalanceData = sharesBalanceQuery.data;
-
+  const {
+    data: sharesBalanceData,
+    isLoading: isSharesBalanceLoading,
+  } = useReadContract({
+    address: MarketContract.address,
+    abi: MarketContract.abi,
+    functionName: "getSharesBalance",
+    args: address ? [BigInt(index), address as `0x${string}`] : undefined,
+    query: {
+      enabled: !!address,
+    },
+  });
 
   const sharesBalance: SharesBalance | undefined = sharesBalanceData
     ? {
-        optionAShares: sharesBalanceData[0],
-        optionBShares: sharesBalanceData[1],
-      }
+      optionAShares: sharesBalanceData[0],
+      optionBShares: sharesBalanceData[1],
+    }
     : undefined;
 
-  const isExpired = market ? new Date(Number(market.endTime) * 1000) < new Date() : false;
+  const isExpired = market
+    ? new Date(Number(market.endTime) * 1000) < new Date()
+    : false;
   const isResolved = market?.resolved;
+
 
   const shouldShow = () => {
     if (!market) return false;

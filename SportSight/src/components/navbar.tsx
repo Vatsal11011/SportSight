@@ -30,7 +30,7 @@ export default function Navbar() {
     address: BetCoin.address,
     abi: BetCoin.abi,
     functionName: 'balanceOf',
-    args: [address!],
+    args: address ? [address] : undefined,
     query: {
       enabled: !!address,
     },
@@ -47,7 +47,7 @@ export default function Navbar() {
     if (blockNumber) {
       refetch()
     }
-  }, [blockNumber])
+  }, [blockNumber, refetch])
 
   const handleClaim = () => {
     writeContract({
@@ -56,6 +56,7 @@ export default function Navbar() {
       functionName: 'claim',
     })
   }
+
 
   return (
     <header className="w-full px-6 py-4 border-b shadow-sm bg-white flex justify-between items-center">

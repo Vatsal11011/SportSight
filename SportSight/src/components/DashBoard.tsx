@@ -92,7 +92,7 @@ export function DashBoard() {
                             </a>
                             . The source code is available on{" "}
                             <a
-                                href="https://github.com/yourusername/your-repo"
+                                href="https://github.com/Vatsal11011/SportSight"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="font-medium underline underline-offset-4"
@@ -104,7 +104,7 @@ export function DashBoard() {
                     </div>
                     <div className="flex items-center gap-4">
                         <a
-                            href="https://github.com/yourusername/your-repo"
+                            href="https://github.com/Vatsal11011/SportSight"
                             target="_blank"
                             rel="noreferrer"
                         >
